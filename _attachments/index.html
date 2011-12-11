@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Machinist's Calculator</title>
+    <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css">
+  </head>
+  <body>
+  <form action="#" onsubmit="updateFields()">
+  <fieldset><legend>Figure up the RPM</legend>
+    <div class="clearfix">
+      <label>Material</label>
+      <div class="input">
+      <select id="material" onchange="loadSpeed()">
+        <option value="" selected="true">Select Material</option>
+        <option value="55">Steel (tough)</option>
+        <option value="110">Mild steel</option>
+        <option value="70">Cast iron (medium)</option>
+        <option value="100">Alloy steels (1320–9262)</option>
+        <option value="100">Carbon steels (C1008-C1095)</option>
+        <option value="185">Free cutting steels (B1111-B1113 & C1108-C1213)</option>
+        <option value="130">Stainless steels (300 & 400 series)</option>
+        <option value="120">Bronzes</option>
+        <option value="300">Leaded steel (Leadloy 12L14)</option>
+        <option value="350">Aluminium</option>
+        <option value="500">Brass</option>
+      </select>
+      </div>
+    </div>
+    <div class="clearfix">
+      <label>Speed</label>
+      <div class="input">
+        <input type="text" id="speed" value="" />
+      </div>
+    </div>
+    <div class="clearfix">
+        <label>Diameter: </label>
+        <div class="input">
+        <input type="text" id="diameter" value="" />
+      </div>
+    </div>
+    <div class="clearfix">
+      <div class="input">
+      <input class="btn" type="button" value="Go!" onclick="updateFields()" />
+      </div>
+    </div>
+    </fieldset>
+    <fieldset><legend>Figure up the Feed Rate</legend>
+    <div class="clearfix">
+        <label>RPM: </label>
+        <div class="input">
+        <input type="text" id="rpm" value="" />
+      </div>
+    </div>
+    <div class="clearfix">
+        <label># of Teeth: </label>
+        <div class="input">
+        <input type="text" id="teeth" value="" />
+      </div>
+    </div>
+    <div class="clearfix">
+        <label>Chip Thickness: </label>
+        <div class="input">
+        <input type="text" id="chip" value="" />
+      </div>
+    </div>
+    <div class="clearfix">
+      <div class="input">
+      <input class="btn" type="button" value="Go!" onclick="calcFeedRate()" />
+      </div>
+    </div>
+    <div class="clearfix">
+        <label>Feed Rate: </label>
+        <div class="input">
+        <input type="text" id="feed" value="" />
+      </div>
+    </div>
+    </fieldset>
+  </form>
+  <script>
+    pi = 3.14159;
+    function loadSpeed(){
+      var material_select = document.querySelector("#material"),
+          speed = material_select.options[material_select.selectedIndex].value;
+      document.querySelector("#speed").value = speed;
+    }
+    function updateFields(){
+      //var rpm = document.querySelector("#rpm").value;
+      var speed = document.querySelector("#speed").value;
+      var diameter = document.querySelector("#diameter").value*1/12;
+      rpm = speed / (pi * diameter);
+      document.querySelector("#rpm").value = rpm;
+      return false;
+    }
+    function calcFeedRate(){
+      var rpm = document.querySelector("#rpm").value,
+          teeth = document.querySelector("#teeth").value,
+          chip_thickness = document.querySelector("#chip").value,
+          fr;
+      fr = rpm * chip_thickness * teeth;
+      document.querySelector("#feed").value = fr;
+    }
+    (function(){
+    
+    })();
+  </script>
+  </body>
+</html>
